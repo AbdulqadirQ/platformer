@@ -34,10 +34,13 @@ public class PlayerMovement : MonoBehaviour {
 		// GetAxisRaw - returns integers based on input; -1 for left, 1 for right
 		float h = Input.GetAxisRaw("Horizontal");
 		if(h>0){
-			// move 'myBody' right, keep y-axis static
+			// move 'myBody' right, keep y-axis velocity static
 			myBody.velocity = new Vector2(speed, myBody.velocity.y);
 		}else if(h<0){
 			myBody.velocity = new Vector2(-speed, myBody.velocity.y);
+		}else{
+			// velocity of 0 on x-axis if user input == 0. i.e fixes sliding
+			myBody.velocity = new Vector2(0f, myBody.velocity.y);
 		}
 	}
 }
