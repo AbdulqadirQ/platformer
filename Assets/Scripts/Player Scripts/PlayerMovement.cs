@@ -42,5 +42,10 @@ public class PlayerMovement : MonoBehaviour {
 			// velocity of 0 on x-axis if user input == 0. i.e fixes sliding
 			myBody.velocity = new Vector2(0f, myBody.velocity.y);
 		}
+
+		// must match the parameter within 'Animator' tab to match 'Speed'
+		// value of myBody.velocity is passed into the Animator object to project an 
+		// animation based on set constraints within 'Animator' tab  
+		anim.SetInteger("Speed", Mathf.Abs((int)(myBody.velocity.x)));
 	}
 }
