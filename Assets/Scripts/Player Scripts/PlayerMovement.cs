@@ -36,8 +36,10 @@ public class PlayerMovement : MonoBehaviour {
 		if(h>0){
 			// move 'myBody' right, keep y-axis velocity static
 			myBody.velocity = new Vector2(speed, myBody.velocity.y);
+			ChangeDirection(1); // scale of 1 faces player to right-side
 		}else if(h<0){
 			myBody.velocity = new Vector2(-speed, myBody.velocity.y);
+			ChangeDirection(-1); // scale of -1 faces player to left-side
 		}else{
 			// velocity of 0 on x-axis if user input == 0. i.e fixes sliding
 			myBody.velocity = new Vector2(0f, myBody.velocity.y);
@@ -47,5 +49,16 @@ public class PlayerMovement : MonoBehaviour {
 		// value of myBody.velocity is passed into the Animator object to project an 
 		// animation based on set constraints within 'Animator' tab  
 		anim.SetInteger("Speed", Mathf.Abs((int)(myBody.velocity.x)));
+	}
+
+	void ChangeDirection(int direction){
+		// localScale uses z-axis even though 2D games don't need it
+		Vector3 tempScale = transform.localScale;
+		tempScale.x = direction;
+		// store scale back with modified x-position
+		transform.localScale = tempScale;
+
+		// NOTE: a temporary variable since c-sharp doesn't allow modifying the scale
+		// 		 directly 
 	}
 }
