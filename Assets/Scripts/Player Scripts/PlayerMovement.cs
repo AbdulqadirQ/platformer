@@ -12,6 +12,11 @@ public class PlayerMovement : MonoBehaviour {
 	public Transform groundCheckPosition;
 	public LayerMask groundLayer;
 
+	private bool isGrounded;
+	private bool jumped;
+
+	private float jumpPower = 5f;
+
 	void Awake(){
 		// gets component 'Rigidbody2D' from the current object
 		myBody = GetComponent<Rigidbody2D>(); 
@@ -28,6 +33,8 @@ public class PlayerMovement : MonoBehaviour {
 		if(Physics2D.Raycast(groundCheckPosition.position, Vector2.down, 0.5f, groundLayer)){
 			print("Collided with ground");
 		}
+		CheckIfGrounded();
+		PlayerJump();
 	}
 
 	// called in fixed intervals, defined by TimeManager -> Fixed Timestep
@@ -66,5 +73,27 @@ public class PlayerMovement : MonoBehaviour {
 		// NOTE: a temporary variable since c-sharp doesn't allow modifying the scale
 		// 		 directly 
 	}
-	
+
+	void CheckIfGrounded(){
+		// isGrounded = (bool) player object is within 0.1f of the ground (i.e. touching ground)...
+		isGrounded = Physics2D.Raycast(groundCheckPosition.position, Vector2.down, 0.15f, groundLayer);
+		if(isGrounded){
+			if(jumped){ // ...AND if player has already jumped
+				jumped = false;
+				anim.SetBool("Jump", false);
+			}
+		}
+	}
+
+	void PlayerJump(){
+		// print("INSIDE PLAYERJUMP");
+		if(isGrounded){
+			if(Input.GetKey(KeyCode.Space)){
+				jumped = true;
+				myBody.velocity = new Vector2(myBody.velocity.x, jumpPower);
+				anim.SetBool("Jump",true);
+			}
+		}
+	}
+
 }

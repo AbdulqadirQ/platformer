@@ -225,6 +225,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114285706734880690, guid: 2aa97ede70066c84dab1ffe9328b1bd3,
+        type: 2}
+      propertyPath: groundLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2aa97ede70066c84dab1ffe9328b1bd3, type: 2}
   m_IsPrefabParent: 0
@@ -238,9 +243,9 @@ GameObject:
   - component: {fileID: 1855826014}
   - component: {fileID: 1855826013}
   - component: {fileID: 1855826012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
