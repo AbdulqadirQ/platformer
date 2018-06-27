@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour {
 	private Rigidbody2D myBody;
 	private Animator anim;
 
+	public Transform groundCheckPosition;
+	public LayerMask groundLayer;
+
 	void Awake(){
 		// gets component 'Rigidbody2D' from the current object
 		myBody = GetComponent<Rigidbody2D>(); 
@@ -22,7 +25,9 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	void Update () {
-		
+		if(Physics2D.Raycast(groundCheckPosition.position, Vector2.down, 0.5f, groundLayer)){
+			print("Collided with ground");
+		}
 	}
 
 	// called in fixed intervals, defined by TimeManager -> Fixed Timestep
@@ -61,4 +66,5 @@ public class PlayerMovement : MonoBehaviour {
 		// NOTE: a temporary variable since c-sharp doesn't allow modifying the scale
 		// 		 directly 
 	}
+	
 }
