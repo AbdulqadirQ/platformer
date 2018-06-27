@@ -30,9 +30,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(Physics2D.Raycast(groundCheckPosition.position, Vector2.down, 0.5f, groundLayer)){
-			print("Collided with ground");
-		}
 		CheckIfGrounded();
 		PlayerJump();
 	}
