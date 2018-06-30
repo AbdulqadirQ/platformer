@@ -71,6 +71,15 @@ public class SnailScript : MonoBehaviour {
 
 					anim.Play("Stunned");
 					stunned = true;
+
+					// BEETLE CODE:
+					// 'tag' is shorthand for 'gameObject.tag'
+					// so, if the current gameObject is 'Beetle', then do... FIXME: should probably put Beetle in a seperate script instead of doing this..
+					if(tag == Tags.BEETLE_TAG){
+						anim.Play("BeetleStunned");
+						// deactivates beetle after a short delay
+						StartCoroutine(Dead(0.5f));
+					}
 				}
 			}
 		}
@@ -81,8 +90,12 @@ public class SnailScript : MonoBehaviour {
 					// APPLY DAMAGE TO PLAYER
 					Debug.Log("DO SOME DAMAGE");
 				}else{
-					// pushes snail object to right side with velocity 15f
-					myBody.velocity = new Vector2(15f, myBody.velocity.y);
+					// don't want to be able to push beetle
+					if(tag != Tags.BEETLE_TAG){
+						// pushes snail object to right side with velocity 15f
+						myBody.velocity = new Vector2(15f, myBody.velocity.y);
+						StartCoroutine(Dead(3f));						
+					}
 				}
 			}
 		}
@@ -93,8 +106,11 @@ public class SnailScript : MonoBehaviour {
 					// APPLY DAMAGE TO PLAYER
 					Debug.Log("DO SOME DAMAGE");
 				}else{
-					// pushes snail object to left side with velocity 15f
-					myBody.velocity = new Vector2(-15f, myBody.velocity.y);
+					if(tag != Tags.BEETLE_TAG){
+						// pushes snail object to left side with velocity 15f
+						myBody.velocity = new Vector2(-15f, myBody.velocity.y);
+						StartCoroutine(Dead(3f));
+					}
 				}
 			}
 		}
@@ -127,6 +143,11 @@ public class SnailScript : MonoBehaviour {
 		}
 
 		transform.localScale = tempScale;
+	}
+
+	IEnumerator Dead(float timer){
+		yield return new WaitForSeconds(timer);
+		gameObject.SetActive(false);
 	}
 
 }
