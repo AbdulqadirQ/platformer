@@ -59,7 +59,7 @@ public class SnailScript : MonoBehaviour {
 		Collider2D topHit = Physics2D.OverlapCircle(top_Collision.position, 0.2f, playerLayer);
 
 		if(topHit != null){
-			if(topHit.gameObject.tag == "Player"){
+			if(topHit.gameObject.tag == Tags.PLAYER_TAG){
 				if(!stunned){
 					// bounces player in y-axis with a velocity of 7f
 					topHit.gameObject.GetComponent<Rigidbody2D>().velocity =
@@ -76,7 +76,7 @@ public class SnailScript : MonoBehaviour {
 		}
 
 		if(leftHit){
-			if(leftHit.collider.gameObject.tag == "Player"){
+			if(leftHit.collider.gameObject.tag == Tags.PLAYER_TAG){
 				if(!stunned){
 					// APPLY DAMAGE TO PLAYER
 					Debug.Log("DO SOME DAMAGE");
@@ -88,7 +88,7 @@ public class SnailScript : MonoBehaviour {
 		}
 
 		if(rightHit){
-			if(rightHit.collider.gameObject.tag == "Player"){
+			if(rightHit.collider.gameObject.tag == Tags.PLAYER_TAG){
 				if(!stunned){
 					// APPLY DAMAGE TO PLAYER
 					Debug.Log("DO SOME DAMAGE");
