@@ -93,7 +93,7 @@ public class SnailScript : MonoBehaviour {
 					// don't want to be able to push beetle
 					if(tag != Tags.BEETLE_TAG){
 						// pushes snail object to right side with velocity 15f
-						myBody.velocity = new Vector2(15f, myBody.velocity.y);
+						myBody.velocity = new Vector2(-15f, myBody.velocity.y);
 						StartCoroutine(Dead(3f));						
 					}
 				}
@@ -108,7 +108,7 @@ public class SnailScript : MonoBehaviour {
 				}else{
 					if(tag != Tags.BEETLE_TAG){
 						// pushes snail object to left side with velocity 15f
-						myBody.velocity = new Vector2(-15f, myBody.velocity.y);
+						myBody.velocity = new Vector2(15f, myBody.velocity.y);
 						StartCoroutine(Dead(3f));
 					}
 				}
