@@ -150,4 +150,30 @@ public class SnailScript : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
+	// This function activates when an object with a trigget collides with this gameObject
+	// since bullet is a trigger, this function would activate when bullet hits snail/beetle
+	void OnTriggerEnter2D(Collider2D target){
+		if(target.tag == Tags.BULLET_TAG){
+			// if current gameObject is a beetle, do:
+			if(tag == Tags.BEETLE_TAG){
+				anim.Play("BeetleStunned");
+
+				canMove = false;
+				myBody.velocity = new Vector2(0,0);
+				StartCoroutine(Dead(0.4f));
+			}
+
+			if(tag == Tags.SNAIL_TAG){
+				if(!stunned){
+					anim.Play("Stunned");
+					stunned = true;
+					canMove = false;
+					myBody.velocity = new Vector2(0,0);
+				}else{
+					StartCoroutine(Dead(0.4f));
+				}
+			}
+		}
+	}
+
 }
