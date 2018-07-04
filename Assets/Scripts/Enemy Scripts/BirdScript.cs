@@ -37,6 +37,7 @@ public class BirdScript : MonoBehaviour {
 	
 	void Update () {
 		MoveTheBird();
+		DropTheEgg();
 	}
 
 	void MoveTheBird(){
@@ -65,5 +66,39 @@ public class BirdScript : MonoBehaviour {
 		Vector3 tempScale = transform.localScale;
 		tempScale.x = direction;
 		transform.localScale = tempScale;
+	}
+
+	// drop egg if raycast touches player
+	void DropTheEgg(){
+		if(!attacked){
+			// from player's position (transform.position), downwards (Vector2.down)
+			// at an infinite line (Mathf.Infinity), checking for player (playerLayer)
+			if(Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, playerLayer)){
+				// spawns bird eggg at the current position (with y-1f)
+				Instantiate(birdEgg, new Vector3(transform.position.x, 
+					transform.position.y - 1f, transform.position.z), Quaternion.identity);
+				attacked = true;
+				anim.Play("BirdFly");
+			}
+		}
+	}
+
+	IEnumerator BirdDead(){
+		yield return new WaitForSeconds(3f);
+		gameObject.SetActive(false);
+	}
+
+	void OnTriggerEnter2D(Collider2D target){
+		if(target.tag == Tags.BULLET_TAG){
+			anim.Play("BirdDead");
+
+			// setting as trigger allows bird to fall through the Ground 
+			GetComponent<BoxCollider2D>().isTrigger = true;
+			// lets bird fall down through gravity
+			myBody.bodyType = RigidbodyType2D.Dynamic;
+
+			canMove = false;
+			StartCoroutine(BirdDead());
+		}
 	}
 }
