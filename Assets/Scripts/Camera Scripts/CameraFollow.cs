@@ -38,6 +38,7 @@ public class CameraFollow : MonoBehaviour {
 		if(foolowsPlayer){
 			Vector3 aheadTargetPos = target.position + Vector3.forward * offsetZ;
 
+			// only follows player if he goes forward
 			if(aheadTargetPos.x >= transform.position.x){
 				// moves transform.position (i.e. camera game object) towards 
 				// aheadTargetPos
