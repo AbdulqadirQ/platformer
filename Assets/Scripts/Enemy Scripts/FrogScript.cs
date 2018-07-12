@@ -14,12 +14,23 @@ public class FrogScript : MonoBehaviour {
 
 	private string frog_jump_coroutine = "FrogJump";
 
+	public LayerMask playerLayer;
+	private GameObject player;
+
 	void Awake(){
 		anim = GetComponent<Animator>();
 	}
 
 	void Start () {
 		StartCoroutine(frog_jump_coroutine);
+	}
+
+	void Update(){
+		// on a circle collision with the player, deal damage
+		if(Physics2D.OverlapCircle(transform.position, 0.5f, playerLayer)){
+			player.GetComponent<PlayerDamage>().DealDamage();
+		}
+		player = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG);
 	}
 	
 	// is called at the end of each frame, i.e. after the Update()

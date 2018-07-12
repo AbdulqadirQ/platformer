@@ -59,5 +59,9 @@ public class SpiderScript : MonoBehaviour {
 			// spider's direction change stops
 			StopCoroutine(change_movement_coroutine);
 		}
+
+		if(target.tag == Tags.PLAYER_TAG){
+			target.GetComponent<PlayerDamage>().DealDamage();
+		}
 	} 
 }

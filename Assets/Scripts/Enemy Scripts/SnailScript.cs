@@ -87,8 +87,7 @@ public class SnailScript : MonoBehaviour {
 		if(leftHit){
 			if(leftHit.collider.gameObject.tag == Tags.PLAYER_TAG){
 				if(!stunned){
-					// APPLY DAMAGE TO PLAYER
-					Debug.Log("DO SOME DAMAGE");
+					leftHit.collider.gameObject.GetComponent<PlayerDamage>().DealDamage();
 				}else{
 					// don't want to be able to push beetle
 					if(tag != Tags.BEETLE_TAG){
@@ -103,8 +102,7 @@ public class SnailScript : MonoBehaviour {
 		if(rightHit){
 			if(rightHit.collider.gameObject.tag == Tags.PLAYER_TAG){
 				if(!stunned){
-					// APPLY DAMAGE TO PLAYER
-					Debug.Log("DO SOME DAMAGE");
+					rightHit.collider.gameObject.GetComponent<PlayerDamage>().DealDamage();
 				}else{
 					if(tag != Tags.BEETLE_TAG){
 						// pushes snail object to left side with velocity 15f
