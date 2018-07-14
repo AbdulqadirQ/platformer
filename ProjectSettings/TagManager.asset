@@ -12,6 +12,7 @@ TagManager:
   - Spider
   - Coin
   - Water
+  - Boss
   layers:
   - Default
   - TransparentFX
